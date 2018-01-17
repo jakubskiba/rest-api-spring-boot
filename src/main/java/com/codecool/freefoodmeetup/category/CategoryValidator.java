@@ -11,15 +11,15 @@ public class CategoryValidator {
         }
     }
 
-    public static void checkHasId(Category category) {
+    public static void checkIdIsNull(Category category) {
         if(category.getId() != null) {
-            throw new WrongValueException("Id should be given");
+            throw new WrongValueException("Id should not be given");
         }
     }
 
-    public static void checkIdIsNull(Category category) {
+    public static void checkHasId(Category category) {
         if(category.getId() == null) {
-            throw new WrongValueException("Id should not be given");
+            throw new WrongValueException("Id should be given");
         }
     }
 }

@@ -25,14 +25,14 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
     }
 
     public Category save(Category category) {
-        CategoryValidator.checkHasId(category);
+        CategoryValidator.checkIdIsNull(category);
         CategoryValidator.checkNotEmptyFields(category);
         return this.repository.save(category);
     }
 
     public Category update(Category category) {
         Integer id = category.getId();
-        CategoryValidator.checkIdIsNull(category);
+        CategoryValidator.checkHasId(category);
         checkExistence(id);
 
         CategoryValidator.checkNotEmptyFields(category);
