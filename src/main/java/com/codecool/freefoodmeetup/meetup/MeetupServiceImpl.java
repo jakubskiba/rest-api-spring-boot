@@ -18,10 +18,6 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
         return this.repository.findAll();
     }
 
-    public Meetup update(Meetup meetup) {
-        return null;
-    }
-
     public Meetup findOne(Integer id) {
         checkExistence(id);
         return this.repository.findOne(id);
@@ -30,6 +26,14 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
     public Meetup save(Meetup meetup) {
         MeetupValidator.checkIdIsNull(meetup);
         MeetupValidator.checkNotEmptyFields(meetup);
+        return this.repository.save(meetup);
+    }
+
+    public Meetup update(Meetup meetup) {
+        Integer id = meetup.getId();
+        MeetupValidator.chceckHasId(meetup);
+        checkExistence(id);
+
         return this.repository.save(meetup);
     }
 

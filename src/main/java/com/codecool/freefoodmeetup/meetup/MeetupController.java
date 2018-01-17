@@ -1,5 +1,6 @@
 package com.codecool.freefoodmeetup.meetup;
 
+import com.codecool.freefoodmeetup.category.Category;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,12 @@ public class MeetupController {
     @PostMapping("")
     public Meetup create(@RequestBody Meetup meetup) {
         return this.service.save(meetup);
+    }
+
+    @PutMapping("")
+    public Meetup update(@RequestBody Meetup meetup) {
+        this.service.update(meetup);
+        return meetup;
     }
 
 }
