@@ -27,12 +27,14 @@ public class CategoryController {
         return this.service.findOne(id);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public Category create(@RequestBody Category category) {
         this.service.save(category);
         return category;
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         this.service.delete(id);
