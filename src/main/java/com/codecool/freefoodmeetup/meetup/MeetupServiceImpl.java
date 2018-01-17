@@ -1,7 +1,10 @@
 package com.codecool.freefoodmeetup.meetup;
 
 import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 public class MeetupServiceImpl implements MeetupServiceInterface {
@@ -25,7 +28,9 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
     }
 
     public Meetup save(Meetup meetup) {
-        return null;
+        MeetupValidator.checkIdIsNull(meetup);
+        MeetupValidator.checkNotEmptyFields(meetup);
+        return this.repository.save(meetup);
     }
 
     public void delete(Integer id) {

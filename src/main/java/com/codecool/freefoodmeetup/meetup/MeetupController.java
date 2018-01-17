@@ -1,8 +1,6 @@
 package com.codecool.freefoodmeetup.meetup;
 
-import com.codecool.freefoodmeetup.category.Category;
-import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
-import com.sun.org.apache.xml.internal.security.utils.resolver.ResourceResolverException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,6 +20,12 @@ public class MeetupController {
     @GetMapping("/{id}")
     public Meetup show(@PathVariable Integer id) {
         return this.service.findOne(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    public Meetup create(@RequestBody Meetup meetup) {
+        return this.service.save(meetup);
     }
 
 }
