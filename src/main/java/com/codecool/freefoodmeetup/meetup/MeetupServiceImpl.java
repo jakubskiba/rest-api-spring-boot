@@ -12,7 +12,7 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
     }
 
     public Iterable<Meetup> findAll() {
-        return null;
+        return this.repository.findAll();
     }
 
     public Meetup update(Meetup meetup) {
