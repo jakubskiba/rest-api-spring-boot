@@ -19,8 +19,8 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
     public Category findOne(Integer id) {
         Category category = this.repository.findOne(id);
         checkExistence(id);
-            return category;
-        }
+        return category;
+    }
 
     public Category save(Category category) {
         CategoryValidator.checkHasId(category);
