@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
     @Override
     public void delete(Integer id) {
         checkExistence(id);
-            this.repository.delete(id);
+        this.repository.delete(id);
     }
 
     private void checkExistence(Integer id) {
