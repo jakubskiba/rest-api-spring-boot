@@ -30,7 +30,8 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public Category create(@RequestBody Category category) {
-        this.service.save(category);
+        return this.service.save(category);
+    }
         return category;
     }
 
