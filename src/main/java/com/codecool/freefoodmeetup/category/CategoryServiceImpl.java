@@ -15,13 +15,17 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
         return this.repository.findAll();
     }
 
-    public Category findOne(Integer id) throws ResourceNotFoundException {
+    public Category findOne(Integer id) {
         Category category = this.repository.findOne(id);
-        if(category != null) {
+        checkExistence(id);
             return category;
-        } else {
-            throw new ResourceNotFoundException("No category of id: " + id);
         }
+
+    public Category save(Category category) {
+        CategoryValidator.checkHasId(category);
+        CategoryValidator.checkNotEmptyFields(category);
+        this.repository.save(category);
+        return category;
     }
 
     public void save(Category category) {
@@ -29,10 +33,13 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
     }
 
     @Override
-    public void delete(Integer id) throws ResourceNotFoundException {
-        if(this.repository.exists(id)){
+    public void delete(Integer id) {
+        checkExistence(id);
             this.repository.delete(id);
-        } else {
+    }
+
+    private void checkExistence(Integer id) {
+        if(!this.repository.exists(id)) {
             throw new ResourceNotFoundException("No category of id: " + id);
         }
     }
