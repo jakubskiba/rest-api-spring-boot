@@ -1,8 +1,7 @@
 package com.codecool.freefoodmeetup.category;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -18,6 +17,17 @@ public class CategoryController {
 
     @GetMapping("")
     public Iterable<Category> index() {
-        return new ArrayList<>();
+        return this.service.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Category show(@PathVariable Integer id) throws ResourceNotFoundException {
+        return this.service.findOne(id);
+    }
+
+    @PostMapping("")
+    public Category create(@RequestBody Category category) {
+        this.service.save(category);
+        return category;
     }
 }
