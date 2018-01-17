@@ -1,11 +1,13 @@
 package com.codecool.freefoodmeetup.meetup;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,7 +19,7 @@ public class Meetup {
     @NotEmpty
     private String name;
 
-    @NotEmpty
+    @NotNull
     private LocalDateTime date;
 
     @NotEmpty
