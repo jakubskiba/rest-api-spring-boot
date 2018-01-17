@@ -4,6 +4,8 @@ import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
 import com.codecool.freefoodmeetup.exceptions.WrongValueException;
 import org.springframework.stereotype.Component;
 
+import java.time.format.DateTimeParseException;
+
 @Component
 public class CategoryServiceImpl implements CategoryServiceInterface {
     private CategoryRepository repository;
@@ -25,8 +27,7 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
     public Category save(Category category) {
         CategoryValidator.checkHasId(category);
         CategoryValidator.checkNotEmptyFields(category);
-        this.repository.save(category);
-        return category;
+        return this.repository.save(category);
     }
 
     public Category update(Category category) {
@@ -35,8 +36,7 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
         checkExistence(id);
 
         CategoryValidator.checkNotEmptyFields(category);
-        this.repository.save(category);
-        return category;
+        return this.repository.save(category);
     }
 
     @Override
