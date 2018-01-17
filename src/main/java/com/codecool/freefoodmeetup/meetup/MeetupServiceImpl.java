@@ -38,7 +38,8 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
     }
 
     public void delete(Integer id) {
-
+        checkExistence(id);
+        this.repository.delete(id);
     }
 
     private void checkExistence(Integer id) {

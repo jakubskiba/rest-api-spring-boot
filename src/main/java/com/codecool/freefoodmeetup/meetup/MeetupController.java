@@ -35,4 +35,10 @@ public class MeetupController {
         return meetup;
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        this.service.delete(id);
+    }
+
 }
