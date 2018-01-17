@@ -16,7 +16,9 @@ public class MeetupController {
 
     @GetMapping("")
     public Iterable<Meetup> index() {
-        return this.service.fingdAll();
+        return this.service.findAll();
     }
+
+
 
 }
