@@ -19,6 +19,9 @@ public class MeetupController {
         return this.service.findAll();
     }
 
-
+    @GetMapping("/{id}")
+    public Meetup show(@PathVariable Integer id) {
+        return this.service.findOne(id);
+    }
 
 }

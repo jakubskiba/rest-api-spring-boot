@@ -20,7 +20,8 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
     }
 
     public Meetup findOne(Integer id) {
-        return null;
+        checkExistence(id);
+        return this.repository.findOne(id);
     }
 
     public Meetup save(Meetup meetup) {
@@ -29,5 +30,11 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
 
     public void delete(Integer id) {
 
+    }
+
+    private void checkExistence(Integer id) {
+        if(!this.repository.exists(id)) {
+            throw new ResourceNotFoundException("No meetup of id: " + id);
+        }
     }
 }
