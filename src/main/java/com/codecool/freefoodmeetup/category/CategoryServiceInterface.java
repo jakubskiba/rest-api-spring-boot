@@ -8,4 +8,5 @@ public interface CategoryServiceInterface {
     Iterable<Category> findAll();
     Category findOne(Integer id) throws ResourceNotFoundException;
     void save(Category category);
+    void delete(Integer id) throws ResourceNotFoundException;
 }

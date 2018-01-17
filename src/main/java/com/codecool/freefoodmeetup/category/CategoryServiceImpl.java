@@ -27,4 +27,13 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
     public void save(Category category) {
         this.repository.save(category);
     }
+
+    @Override
+    public void delete(Integer id) throws ResourceNotFoundException {
+        if(this.repository.exists(id)){
+            this.repository.delete(id);
+        } else {
+            throw new ResourceNotFoundException("No category of id: " + id);
+        }
+    }
 }

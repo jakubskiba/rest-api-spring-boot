@@ -1,6 +1,8 @@
 package com.codecool.freefoodmeetup.category;
 
 import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
+import com.sun.org.apache.xml.internal.security.utils.resolver.ResourceResolverException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,5 +31,10 @@ public class CategoryController {
     public Category create(@RequestBody Category category) {
         this.service.save(category);
         return category;
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) throws ResourceResolverException {
+        this.service.delete(id);
     }
 }
