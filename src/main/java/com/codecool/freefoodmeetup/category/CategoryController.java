@@ -1,8 +1,10 @@
 package com.codecool.freefoodmeetup.category;
 
 import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
+import com.codecool.freefoodmeetup.exceptions.WrongValueException;
 import com.sun.org.apache.xml.internal.security.utils.resolver.ResourceResolverException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,6 +34,10 @@ public class CategoryController {
     public Category create(@RequestBody Category category) {
         return this.service.save(category);
     }
+
+    @PutMapping("")
+    public Category update(@RequestBody Category category) {
+        this.service.update(category);
         return category;
     }
 

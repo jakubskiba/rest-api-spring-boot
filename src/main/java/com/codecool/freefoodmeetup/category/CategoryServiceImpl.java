@@ -1,6 +1,7 @@
 package com.codecool.freefoodmeetup.category;
 
 import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
+import com.codecool.freefoodmeetup.exceptions.WrongValueException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,8 +29,14 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
         return category;
     }
 
-    public void save(Category category) {
+    public Category update(Category category) {
+        Integer id = category.getId();
+        CategoryValidator.checkIdIsNull(category);
+        checkExistence(id);
+
+        CategoryValidator.checkNotEmptyFields(category);
         this.repository.save(category);
+        return category;
     }
 
     @Override
