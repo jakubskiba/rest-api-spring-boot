@@ -23,7 +23,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public Category show(@PathVariable Integer id) throws ResourceNotFoundException {
+    public Category show(@PathVariable Integer id) {
         return this.service.findOne(id);
     }
 
@@ -34,7 +34,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) throws ResourceResolverException {
+    public void delete(@PathVariable Integer id) {
         this.service.delete(id);
     }
 }
