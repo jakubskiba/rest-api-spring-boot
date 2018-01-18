@@ -15,7 +15,7 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
     }
 
     public Iterable<Meetup> findAll() {
-        return this.repository.findAll();
+        return this.repository.findByArchived(false);
     }
 
     public Meetup findOne(Integer id) {
@@ -39,11 +39,14 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
 
     public void delete(Integer id) {
         checkExistence(id);
-        this.repository.delete(id);
+        Meetup meetup = this.repository.findOne(id);
+        meetup.setArchived(true);
+        this.repository.save(meetup);
     }
 
     private void checkExistence(Integer id) {
-        if(!this.repository.exists(id)) {
+        if(!this.repository.exists(id) &&
+                this.repository.findByIdAndArchived(id, true) != null) {
             throw new ResourceNotFoundException("No meetup of id: " + id);
         }
     }
