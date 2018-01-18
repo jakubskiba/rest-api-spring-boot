@@ -1,14 +1,16 @@
 package com.codecool.freefoodmeetup.meetup;
 
 import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
-@Component
-public class MeetupServiceImpl implements MeetupServiceInterface {
+@Primary
+@Service
+public class MeetupServiceImplArchived implements MeetupServiceInterface {
     private MeetupRepository repository;
     private MeetupValidator validator;
 
-    public MeetupServiceImpl(MeetupRepository repository, MeetupValidator validator) {
+    public MeetupServiceImplArchived(MeetupRepository repository, MeetupValidator validator) {
         this.repository = repository;
         this.validator = validator;
     }
@@ -19,6 +21,7 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
 
     public Meetup findOne(Integer id) {
         checkExistence(id);
+        checkArchivisation(id);
         return this.repository.findOne(id);
     }
 
@@ -32,21 +35,28 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
         Integer id = meetup.getId();
         this.validator.chceckHasId(meetup);
         checkExistence(id);
+        checkArchivisation(id);
 
         return this.repository.save(meetup);
     }
 
     public void delete(Integer id) {
         checkExistence(id);
+        checkArchivisation(id);
         Meetup meetup = this.repository.findOne(id);
         meetup.setArchived(true);
         this.repository.save(meetup);
     }
 
     private void checkExistence(Integer id) {
-        if(!this.repository.exists(id) &&
-                this.repository.findByIdAndArchived(id, true) != null) {
+        if(!this.repository.exists(id)) {
             throw new ResourceNotFoundException("No meetup of id: " + id);
+        }
+    }
+
+    private void checkArchivisation(Integer id) {
+        if(this.repository.findByIdAndArchived(id, true) != null) {
+            throw new ResourceNotFoundException("Meetup of id: " + id + " was archived");
         }
     }
 }
