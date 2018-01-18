@@ -1,11 +1,11 @@
 package com.codecool.freefoodmeetup.category;
 
+import com.codecool.freefoodmeetup.meetup.Meetup;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Category {
@@ -16,6 +16,10 @@ public class Category {
 
     @NotEmpty
     private String name;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Meetup> meetups;
 
     public Integer getId() {
         return id;
@@ -31,5 +35,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Meetup> getMeetups() {
+        return meetups;
+    }
+
+    public void setMeetups(List<Meetup> meetups) {
+        this.meetups = meetups;
     }
 }

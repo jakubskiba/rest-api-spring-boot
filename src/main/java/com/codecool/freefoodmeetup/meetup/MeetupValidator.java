@@ -19,6 +19,13 @@ public class MeetupValidator {
         checkNameNotEmpty(meetup);
         checkDateNotNull(meetup);
         checkDescriptionNotEmpty(meetup);
+        checkCategoryNotNull(meetup);
+    }
+
+    private static void checkCategoryNotNull(Meetup meetup) {
+        if(meetup.getCategory() == null) {
+            throw new WrongValueException("Category can not be null");
+        }
     }
 
     private static void checkDescriptionNotEmpty(Meetup meetup) {

@@ -1,12 +1,10 @@
 package com.codecool.freefoodmeetup.meetup;
 
+import com.codecool.freefoodmeetup.category.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -24,6 +22,10 @@ public class Meetup {
 
     @NotEmpty
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private Category category;
 
     public Integer getId() {
         return id;
@@ -55,5 +57,13 @@ public class Meetup {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
