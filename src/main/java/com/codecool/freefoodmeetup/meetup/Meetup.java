@@ -1,7 +1,6 @@
 package com.codecool.freefoodmeetup.meetup;
 
 import com.codecool.freefoodmeetup.category.Category;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 

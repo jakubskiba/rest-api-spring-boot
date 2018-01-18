@@ -3,8 +3,6 @@ package com.codecool.freefoodmeetup.category;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.logging.Logger;
-
 @RestController
 @RequestMapping(path = "/categories")
 public class CategoryController {

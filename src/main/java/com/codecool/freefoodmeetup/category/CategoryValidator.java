@@ -34,7 +34,7 @@ public class CategoryValidator {
     public void checkHasId(Category category) {
         logger.logInfo("Checking Category have id");
         if(category.getId() == null) {
-            throw new WrongValueException("Id should not be given");
+            throw new WrongValueException("Id should be given");
         }
     }
 }
