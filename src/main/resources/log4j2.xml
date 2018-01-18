@@ -7,8 +7,21 @@
     </Properties>
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <MarkerFilter marker="START" onMatch="DENY" onMismatch="ACCEPT"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
+        <RollingFile name="FileAppender" fileName="logs/freeFoodMeetupApp.log"
+                     filePattern="logs/freeFoodMeetupApp-log-%d{yyyy-MM-dd}-%i.log">
+            <MarkerFilter marker="START" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
     </Appenders>
     <Loggers>
         <Logger name="com.example.log4j2demo" level="debug" additivity="false">
@@ -17,6 +30,7 @@
 
         <Root level="info">
             <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender"/>
         </Root>
     </Loggers>
 </Configuration>
