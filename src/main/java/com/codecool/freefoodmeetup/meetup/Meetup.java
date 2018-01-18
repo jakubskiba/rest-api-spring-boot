@@ -2,6 +2,7 @@ package com.codecool.freefoodmeetup.meetup;
 
 import com.codecool.freefoodmeetup.category.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -26,6 +27,9 @@ public class Meetup {
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
+
+    @JsonIgnore
+    private Boolean archived = false;
 
     public Integer getId() {
         return id;
@@ -65,5 +69,13 @@ public class Meetup {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Boolean getArchived() {
+        return archived;
+    }
+
+    public void setArchived(Boolean archived) {
+        this.archived = archived;
     }
 }

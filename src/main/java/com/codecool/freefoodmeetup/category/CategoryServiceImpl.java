@@ -1,10 +1,8 @@
 package com.codecool.freefoodmeetup.category;
 
 import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
-import com.codecool.freefoodmeetup.exceptions.WrongValueException;
+import com.codecool.freefoodmeetup.meetup.Meetup;
 import org.springframework.stereotype.Component;
-
-import java.time.format.DateTimeParseException;
 
 @Component
 public class CategoryServiceImpl implements CategoryServiceInterface {
@@ -15,13 +13,12 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
     }
 
     public Iterable<Category> findAll() {
-        return this.repository.findAll();
+        return this.repository.findByArchived(false);
     }
 
     public Category findOne(Integer id) {
-        Category category = this.repository.findOne(id);
         checkExistence(id);
-        return category;
+        return this.repository.findOne(id);
     }
 
     public Category save(Category category) {
@@ -42,11 +39,16 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
     @Override
     public void delete(Integer id) {
         checkExistence(id);
-        this.repository.delete(id);
+        Category category = this.repository.findOne(id);
+        for(Meetup meetup : category.getMeetups()) {
+            meetup.setArchived(true);
+        }
+        category.setArchived(true);
+        this.repository.save(category);
     }
 
     private void checkExistence(Integer id) {
-        if(!this.repository.exists(id)) {
+        if(!this.repository.exists(id) || this.repository.findByIdAndArchived(id, true) != null) {
             throw new ResourceNotFoundException("No category of id: " + id);
         }
     }

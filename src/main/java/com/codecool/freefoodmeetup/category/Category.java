@@ -21,6 +21,9 @@ public class Category {
     @JsonIgnore
     private List<Meetup> meetups;
 
+    @JsonIgnore
+    private Boolean archived = false;
+
     public Integer getId() {
         return id;
     }
@@ -43,5 +46,13 @@ public class Category {
 
     public void setMeetups(List<Meetup> meetups) {
         this.meetups = meetups;
+    }
+
+    public Boolean getArchived() {
+        return this.archived;
+    }
+
+    public void setArchived(Boolean archived) {
+        this.archived = archived;
     }
 }
