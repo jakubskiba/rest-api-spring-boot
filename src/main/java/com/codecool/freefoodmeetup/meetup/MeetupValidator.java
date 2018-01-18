@@ -1,7 +1,9 @@
 package com.codecool.freefoodmeetup.meetup;
 
 import com.codecool.freefoodmeetup.exceptions.WrongValueException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MeetupValidator {
     public void chceckHasId(Meetup meetup) {
         if(meetup.getId() == null) {
