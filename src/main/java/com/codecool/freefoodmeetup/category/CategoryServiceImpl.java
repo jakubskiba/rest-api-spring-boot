@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryServiceImpl implements CategoryServiceInterface {
     private CategoryRepository repository;
+    private CategoryValidator validator;
 
-    public CategoryServiceImpl(CategoryRepository repository) {
+    public CategoryServiceImpl(CategoryRepository repository, CategoryValidator validator) {
         this.repository = repository;
+        this.validator = validator;
     }
 
     public Iterable<Category> findAll() {
@@ -22,17 +24,17 @@ public class CategoryServiceImpl implements CategoryServiceInterface {
     }
 
     public Category save(Category category) {
-        CategoryValidator.checkIdIsNull(category);
-        CategoryValidator.checkNotEmptyFields(category);
+        this.validator.checkIdIsNull(category);
+        this.validator.checkNotEmptyFields(category);
         return this.repository.save(category);
     }
 
     public Category update(Category category) {
         Integer id = category.getId();
-        CategoryValidator.checkHasId(category);
+        this.validator.checkHasId(category);
         checkExistence(id);
 
-        CategoryValidator.checkNotEmptyFields(category);
+        this.validator.checkNotEmptyFields(category);
         return this.repository.save(category);
     }
 

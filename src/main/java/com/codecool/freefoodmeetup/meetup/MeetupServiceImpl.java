@@ -1,17 +1,16 @@
 package com.codecool.freefoodmeetup.meetup;
 
 import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 public class MeetupServiceImpl implements MeetupServiceInterface {
     private MeetupRepository repository;
+    private MeetupValidator validator;
 
-    public MeetupServiceImpl (MeetupRepository repository) {
+    public MeetupServiceImpl(MeetupRepository repository, MeetupValidator validator) {
         this.repository = repository;
+        this.validator = validator;
     }
 
     public Iterable<Meetup> findAll() {
@@ -24,14 +23,14 @@ public class MeetupServiceImpl implements MeetupServiceInterface {
     }
 
     public Meetup save(Meetup meetup) {
-        MeetupValidator.checkIdIsNull(meetup);
-        MeetupValidator.checkNotEmptyFields(meetup);
+        this.validator.checkIdIsNull(meetup);
+        this.validator.checkNotEmptyFields(meetup);
         return this.repository.save(meetup);
     }
 
     public Meetup update(Meetup meetup) {
         Integer id = meetup.getId();
-        MeetupValidator.chceckHasId(meetup);
+        this.validator.chceckHasId(meetup);
         checkExistence(id);
 
         return this.repository.save(meetup);
