@@ -1,7 +1,6 @@
 package com.codecool.freefoodmeetup.meetup;
 
 import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service

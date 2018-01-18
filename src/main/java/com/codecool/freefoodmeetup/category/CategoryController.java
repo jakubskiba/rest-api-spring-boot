@@ -1,13 +1,9 @@
 package com.codecool.freefoodmeetup.category;
 
-import com.codecool.freefoodmeetup.exceptions.ResourceNotFoundException;
-import com.codecool.freefoodmeetup.exceptions.WrongValueException;
-import com.sun.org.apache.xml.internal.security.utils.resolver.ResourceResolverException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(path = "/categories")
