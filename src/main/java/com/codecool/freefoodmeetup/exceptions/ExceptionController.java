@@ -5,6 +5,9 @@ import com.codecool.freefoodmeetup.logger.LoggerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 @ControllerAdvice
 @RestController
 public class ExceptionController {
@@ -18,7 +21,10 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ExceptionModel handleAnyException(Exception e) {
-        this.loggerService.logError(e.getMessage());
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        this.loggerService.logError(e.getMessage() + sw.toString());
         return new ExceptionModel("Server error occured. For details please look to logger.", "Internal server error");
     }
 
